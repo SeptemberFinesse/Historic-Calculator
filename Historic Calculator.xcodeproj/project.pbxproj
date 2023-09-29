@@ -16,6 +16,7 @@
 		078E5C792AC5059400BFDCDE /* Historic_CalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078E5C782AC5059400BFDCDE /* Historic_CalculatorTests.swift */; };
 		078E5C832AC5059400BFDCDE /* Historic_CalculatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078E5C822AC5059400BFDCDE /* Historic_CalculatorUITests.swift */; };
 		078E5C852AC5059400BFDCDE /* Historic_CalculatorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078E5C842AC5059400BFDCDE /* Historic_CalculatorUITestsLaunchTests.swift */; };
+		078E5CD22AC51D9C00BFDCDE /* CalculatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078E5CD12AC51D9C00BFDCDE /* CalculatorViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,8 @@
 		078E5C7E2AC5059400BFDCDE /* Historic CalculatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Historic CalculatorUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		078E5C822AC5059400BFDCDE /* Historic_CalculatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Historic_CalculatorUITests.swift; sourceTree = "<group>"; };
 		078E5C842AC5059400BFDCDE /* Historic_CalculatorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Historic_CalculatorUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		078E5CD02AC50B8D00BFDCDE /* contentviewbackup.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = contentviewbackup.md; sourceTree = "<group>"; };
+		078E5CD12AC51D9C00BFDCDE /* CalculatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +103,8 @@
 			children = (
 				078E5C622AC5058A00BFDCDE /* Historic_CalculatorApp.swift */,
 				078E5C642AC5058A00BFDCDE /* ContentView.swift */,
+				078E5CD12AC51D9C00BFDCDE /* CalculatorViewModel.swift */,
+				078E5CD02AC50B8D00BFDCDE /* contentviewbackup.md */,
 				078E5C662AC5059300BFDCDE /* Assets.xcassets */,
 				078E5C6B2AC5059300BFDCDE /* Persistence.swift */,
 				078E5C6D2AC5059300BFDCDE /* Historic_Calculator.xcdatamodeld */,
@@ -267,6 +272,7 @@
 				078E5C6C2AC5059300BFDCDE /* Persistence.swift in Sources */,
 				078E5C652AC5058A00BFDCDE /* ContentView.swift in Sources */,
 				078E5C632AC5058A00BFDCDE /* Historic_CalculatorApp.swift in Sources */,
+				078E5CD22AC51D9C00BFDCDE /* CalculatorViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
