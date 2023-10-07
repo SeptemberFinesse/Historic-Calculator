@@ -41,19 +41,20 @@ extension CalculatorViewModel {
         // If the last input was a number or it's the start, then we can add more numbers
 //        if lastInputType == .number || operationsAndGroupings.isEmpty {
         if lastInputType == .number || lastInputType == .operation {
-            // Only allow one decimal point per grouping
-            if number == "." && currentGrouping.hasDecimal { return }
-
             currentGrouping.value += number
             currentGrouping.rawInput += number
-            if number == "." {
-                currentGrouping.hasDecimal = true
-            }
+            
 
             displayValue += number
             lastInputType = .number
         }
-        
+    }
+    
+    func handleDecimalButton(_ number: String) {
+        if number == "." && currentGrouping.hasDecimal { return }
+        if number == "." {
+            currentGrouping.hasDecimal = true
+        }
     }
 
     func handleOperationButton(_ operation: String) {
