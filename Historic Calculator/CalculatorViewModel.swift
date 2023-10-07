@@ -18,7 +18,6 @@ class CalculatorViewModel: ObservableObject {
     @Published var result: String = ""  // This will display the final
     @Published var lastInputType: LastInputType = .number  // Default it to .number since calculator starts with a number
     @Published var equalResult: Int = 0
-//    @Published var history: [String] = []
     @Published var arithmeticExpression: String = ""
 
 //    @Published var currentEquation: String = ""
@@ -37,27 +36,55 @@ class CalculatorViewModel: ObservableObject {
 }
 
 extension CalculatorViewModel {
-    func handleNumberButton(_ number: String) {
+    func handleNumberButton(_ button: String) {
+        if equalsPressedFlag {
+            clear()
+            equalsPressedFlag = false
+        }
         // If the last input was a number or it's the start, then we can add more numbers
 //        if lastInputType == .number || operationsAndGroupings.isEmpty {
-        if lastInputType == .number || lastInputType == .operation {
-            currentGrouping.value += number
-            currentGrouping.rawInput += number
-            
-
-            displayValue += number
+        
+        if button == "." && currentGrouping.rawInput.contains(".") { return }
+        if button == "." {
+//            currentGrouping.rawInput += button
+//            currentGrouping.value += button
+            handleDecimalButton(button)
+//            displayValue += button
+        } else {
+            handleDisplayText(button)
             lastInputType = .number
         }
+//        else if lastInputType == .number || lastInputType == .operation || operationsAndGroupings.isEmpty {
+//            currentGrouping.rawInput += button
+//            currentGrouping.value += button
+//            displayValue += button
+//        }
+        
+    }
+    func handleDisplayText(_ buttonInput: String) {
+        displayValue += buttonInput
+        currentGrouping.rawInput += buttonInput
+        currentGrouping.value += buttonInput
+        
     }
     
-    func handleDecimalButton(_ number: String) {
-        if number == "." && currentGrouping.hasDecimal { return }
-        if number == "." {
-            currentGrouping.hasDecimal = true
+    func handleDecimalButton(_ button: String) {
+        if lastInputType == .number {
+            handleDisplayText(button)
+            lastInputType = .number
         }
+        if lastInputType == .operation {
+            handleDisplayText("0" + button)
+            lastInputType = .number
+        }
+//        if button == "." && currentGrouping.rawInput.contains(".") { return }
+//        if currentGrouping.rawInput.contains(".") { return }
+        
+        
     }
 
     func handleOperationButton(_ operation: String) {
+        equalsPressedFlag = false
         // Only allow an operation if the last input was a number
         if lastInputType == .number {
             // Save the current grouping
@@ -72,6 +99,7 @@ extension CalculatorViewModel {
     }
 
     func handleEqualButton() {
+        equalsPressedFlag = true
         // Add the current grouping to the list
         operationsAndGroupings.append(currentGrouping.value)
 
@@ -83,8 +111,9 @@ extension CalculatorViewModel {
         }
 
         // Reset
-        operationsAndGroupings = []
+//        operationsAndGroupings = []
         currentGrouping = Grouping()
+//        displayValue = ""
         lastInputType = .number  // Resetting to .number since after "=" we expect a number
         
     }
@@ -107,114 +136,3 @@ extension CalculatorViewModel {
     }
 }
 
-//extension CalculatorViewModel {
-//    // Number button pressed
-////    func numberPressed(_ value: String) {
-////        if equalsPressedFlag {
-////            clear()
-////            equalsPressedFlag = false
-////        }
-////        if let number = Int(value) {
-////            if selectedOperation == nil {
-////                currentNumber = currentNumber == nil ? number : currentNumber! * 10 + number
-////            } else {
-////                // If an operation is selected, reset the calculator's state
-//////                clear()
-////                currentNumber = number
-////            }
-////            equalResult = currentNumber!
-//////            print(formatNumber(equalResult, decimalPlaces: 2))
-////        }
-////        arithmeticExpression += value
-////    }
-//
-//    func decimalPointPressed() {
-//        if !arithmeticExpression.contains(".") {
-//                arithmeticExpression += "."
-//            }
-//        print(arithmeticExpression)
-//    }
-//    func formatNumber(_ number: Double, decimalPlaces: Int) -> String {
-//        return String(format: "%.\(decimalPlaces)f", number)
-//    }
-//
-//
-//    // Operation button pressed
-//    func operationPressed(_ operation: Operation) {
-//        if equalsPressedFlag {
-//            clear()
-//            equalsPressedFlag = false
-//        }
-//        // Only store the selected operation and the current number
-//        previousNumber = currentNumber
-//        currentNumber = nil
-//        selectedOperation = operation
-//        switch operation {
-//            case .add:
-//                arithmeticExpression += " + "
-//            case .subtract:
-//                arithmeticExpression += " - "
-//            case .multiply:
-//                arithmeticExpression += " x "
-//            case .divide:
-//                arithmeticExpression += " / "
-//            default:
-//                break
-//            }
-//    }
-//
-//    // Equals button pressed
-//    func equalsPressed() {
-//        if let previous = previousNumber, let current = currentNumber, let operation = selectedOperation {
-//            switch operation {
-//            case .add:
-//                equalResult = previous + current
-//            case .subtract:
-//                equalResult = previous - current
-//            case .multiply:
-//                equalResult = previous * current
-//            case .divide:
-//                equalResult = current != 0 ? previous / current : Int.zero//: Double.nan
-//            default:
-//                break
-//            }
-//
-//            addToHistory(operation: operation, result: equalResult)
-//            print(history)
-//            previousNumber = equalResult
-//            currentNumber = nil
-//            selectedOperation = nil
-//
-//            print(String(format: "%.\(2)f", equalResult))
-//        }
-//        equalsPressedFlag = true
-//        print(String(format: "%.\(2)f", equalResult))
-////        print(formatNumber(equalResult, decimalPlaces: 2))
-//        //thisVar = equalResult
-//        //after hitting "=," store thisVar and continue to do the operations
-//
-////        arithmeticExpression = String(equalResult)
-//    }
-//
-//    // Add to history
-//    func addToHistory(operation: Operation, result: Int) {
-//        var operationSymbol: String
-//        switch operation {
-//        case .add:
-//            operationSymbol = "+"
-//        case .subtract:
-//            operationSymbol = "-"
-//        case .multiply:
-//            operationSymbol = "x"
-//        case .divide:
-//            operationSymbol = "/"
-//        default:
-//            operationSymbol = ""
-//        }
-//
-////        history.append("\(previousNumber ?? 0) \(operationSymbol) \(currentNumber ?? 0) = \(result)")
-//        print(history)
-//    }
-    
-    // Clear or reset the calculator
-    
