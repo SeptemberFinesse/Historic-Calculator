@@ -172,3 +172,23 @@ extension CalculatorViewModel {
     func equalsPressed() {
         operationPressed(selectedOperation ?? .none)
     }
+
+
+    func numberPressed(_ value: String) {
+        if equalsPressedFlag {
+            clear()
+            equalsPressedFlag = false
+        }
+        if let number = Double(value) {
+            if selectedOperation == nil {
+                currentNumber = currentNumber == nil ? number : currentNumber! * 10 + number
+            } else {
+                // If an operation is selected, reset the calculator's state
+//                clear()
+                currentNumber = number
+            }
+            equalResult = currentNumber!
+            print(formatNumber(equalResult, decimalPlaces: 2))
+        }
+        arithmeticExpression += value
+    }

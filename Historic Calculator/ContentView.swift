@@ -18,7 +18,6 @@ struct ContentView: View {
     // Create a state property to track the current color index
     @State private var currentColorIndex = 0
     
-    
     var body: some View {
         VStack(spacing: 20) {
             //Color Cycle Button
@@ -32,7 +31,7 @@ struct ContentView: View {
                     .cornerRadius(10)
             }
             // Display
-            Text(String(viewModel.equalResult))
+            Text(String(viewModel.result))
                 .font(.largeTitle)
                 .padding()
                 .background(Color.gray.opacity(0.2))
@@ -44,7 +43,6 @@ struct ContentView: View {
         }
         .padding()
     }
-
 
     private func bindingForColor(_ index: Int) -> Binding<Color> {
             Binding<Color>(
@@ -69,14 +67,14 @@ extension ContentView {
         }) {
             Text("C")
                 .frame(width: 77, height: 85)
-                .background(Color.red)
+                .background(Color.orange)
                 .foregroundColor(.white)
                 .cornerRadius(10)
         }
     }
 
     func currentEquation() -> some View {
-        Text(viewModel.arithmeticExpression)
+        Text(viewModel.displayValue)
             .frame(width: 275, height: 85)
             .background(Color.gray.opacity(0.2))
             .foregroundColor(.white)
@@ -99,7 +97,7 @@ extension ContentView {
                 calculatorButton(label: "4")
                 calculatorButton(label: "5")
                 calculatorButton(label: "6")
-                calculatorButton(label: "x")
+                calculatorButton(label: "*")
             }
             HStack(spacing: 20) {
                 calculatorButton(label: "1")
@@ -119,21 +117,24 @@ extension ContentView {
     
     func calculatorButton(label: String) -> some View {
         Button(action: {
+//            viewModel.handle
             switch label {
             case "0"..."9":
-                viewModel.numberPressed(label)
-            case ".": break
-                // Handle decimal point if needed
+                viewModel.handleNumberButton(label)
+            case ".":
+                viewModel.handleNumberButton(label)
+//            case ".":
+//                viewModel.decimalPointPressed()
             case "+":
-                viewModel.operationPressed(.add)
+                viewModel.handleOperationButton(label)
             case "-":
-                viewModel.operationPressed(.subtract)
-            case "x":
-                viewModel.operationPressed(.multiply)
+                viewModel.handleOperationButton(label)
+            case "*":
+                viewModel.handleOperationButton(label)
             case "/":
-                viewModel.operationPressed(.divide)
+                viewModel.handleOperationButton(label)
             case "=":
-                viewModel.equalsPressed()
+                viewModel.handleEqualButton()
             case "C":
                 viewModel.clear()
             default:
